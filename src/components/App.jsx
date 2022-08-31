@@ -7,10 +7,11 @@ import Layout from './Layout/Layout';
 // import MovieDetails from './MovieDetails/MovieDetails';
 import Cast from './Cast/Cast';
 import Reviews from './Reviews/Reviews';
-import Library from './Library/Library';
+// import Library from '../pages/Library/Library';
 
 const HomePage = lazy(() => import('../pages/HomePage/HomePage'));
 const MoviesPage = lazy(() => import('../pages/MoviesPage/MoviesPage'));
+const Library = lazy(() => import('../pages/Library/Library'));
 const MovieDetails = lazy(() =>
   import('../components/MovieDetails/MovieDetails')
 );
