@@ -16,10 +16,10 @@ const baseSearchParams = {
   api_key: apiConfig.API_KEY,
 };
 
-export async function getTrendingMovies() {
+export async function getTrendingMovies(page) {
   try {
     const res = await axios.get(apiConfig.TRENDING, {
-      params: baseSearchParams,
+      params: { ...baseSearchParams, page },
     });
 
     return res.data;
@@ -28,10 +28,10 @@ export async function getTrendingMovies() {
   }
 }
 
-export async function getMovieByKey(key) {
+export async function getMovieByKey(key, page) {
   try {
     const res = await axios.get(apiConfig.SEARCH, {
-      params: { ...baseSearchParams, query: key },
+      params: { ...baseSearchParams, query: key, page },
     });
 
     return res.data;

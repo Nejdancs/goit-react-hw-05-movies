@@ -13,6 +13,8 @@ export const CastItem = styled.li`
 
 export const Img = styled.img`
   width: 100%;
+  height: 160px;
+  object-fit: cover;
   margin-bottom: 8px;
 `;
 

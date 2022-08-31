@@ -5,6 +5,7 @@ const NavBar = () => {
     <Nav>
       <StyledLink to={'/'}>Home</StyledLink>
       <StyledLink to={'/movies'}>Movies</StyledLink>
+      <StyledLink to={'/library'}>Library</StyledLink>
     </Nav>
   );
 };

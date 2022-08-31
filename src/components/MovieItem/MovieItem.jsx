@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Content, Item } from './MovieItem.styled';
+import { Content, Img, Item } from './MovieItem.styled';
+import noPoster from '../../images/img-default.jpg';
 import PropTypes from 'prop-types';
 
 const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w780';
@@ -7,16 +8,18 @@ const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w780';
 const MovieItem = ({ id, title, poster_path, release_date }) => {
   const location = useLocation();
 
-  const releaseDate = release_date.slice(0, 4);
+  const imgUrl = poster_path ? `${IMAGE_BASE_URL}/${poster_path}` : noPoster;
+
+  const releaseDate = release_date ? release_date.slice(0, 4) : 'N/A';
   return (
     <Item>
       <Link to={`/movies/${id}`} state={{ from: location }}>
         <div>
-          <img src={`${IMAGE_BASE_URL}/${poster_path}`} alt={title} />
+          <Img src={imgUrl} alt={title} width="300" />
         </div>
 
         <Content>
-          {title} ({releaseDate})
+          {title ?? 'N/A'} ({releaseDate})
         </Content>
       </Link>
     </Item>

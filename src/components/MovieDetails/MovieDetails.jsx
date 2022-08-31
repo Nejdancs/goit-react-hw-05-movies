@@ -4,10 +4,12 @@ import { useEffect, useState } from 'react';
 import { useParams, useLocation, Outlet } from 'react-router-dom';
 import { getMovieDetails } from 'services/api';
 import noPoster from '../../images/img-default.jpg';
+import { getLocalStorage, setLocalStorage } from 'services/localStorage';
 import {
   BackLink,
   Content,
   DetailWrapper,
+  FavouriteBtn,
   IconArrowLeft,
   Label,
   LinkList,
@@ -21,6 +23,7 @@ const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w780';
 const MovieDetails = () => {
   const [movieDetails, setMovieDetails] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [isAddToFavourite, setIsAddToFavourite] = useState(false);
   const params = useParams();
   const location = useLocation();
 
@@ -30,6 +33,18 @@ const MovieDetails = () => {
       .then(setMovieDetails)
       .finally(() => setLoading(false));
   }, [params]);
+
+  useEffect(() => {
+    const savedData = getLocalStorage('favourite');
+    if (savedData && savedData.some(data => data.id === movieDetails?.id)) {
+      setIsAddToFavourite(true);
+    }
+  }, [movieDetails?.id]);
+
+  function addFavourite() {
+    const isAded = setLocalStorage('favourite', movieDetails);
+    setIsAddToFavourite(isAded);
+  }
 
   if (!movieDetails) {
     return <>{loading && <Loader />}</>;
@@ -79,6 +94,13 @@ const MovieDetails = () => {
               {genresStr}
             </p>
           )}
+          <FavouriteBtn
+            className={isAddToFavourite && 'active'}
+            onClick={addFavourite}
+            type="button"
+          >
+            {isAddToFavourite ? 'Remove from favorites' : 'Add to favorites'}
+          </FavouriteBtn>
         </Content>
       </DetailWrapper>
       <LinkList>

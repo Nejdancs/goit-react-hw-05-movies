@@ -3,6 +3,7 @@ import Loader from 'components/Loader/Loader';
 import MovieList from 'components/MovieList/MovieList';
 import SearchMovies from 'components/SearchMovies/SearchMovies';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import PaginatedItems from 'components/Pagination/Pagination';
 
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
@@ -14,14 +15,16 @@ const MoviesPage = () => {
   const [loading, setLoading] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const queryParam = searchParams.get('query') ?? '';
+  const pageParam = Number(searchParams.get('page') ?? 1);
 
   useEffect(() => {
     if (!queryParam) {
+      setMovies(null);
       return;
     }
 
     setLoading(true);
-    getMovieByKey(queryParam)
+    getMovieByKey(queryParam, pageParam)
       .then(res => {
         if (res.results.length === 0) {
           Notify.failure('Nothing is found. Wrong query.');
@@ -29,7 +32,7 @@ const MoviesPage = () => {
         setMovies(res);
       })
       .finally(() => setLoading(false));
-  }, [queryParam]);
+  }, [pageParam, queryParam]);
 
   function onSubmit(e) {
     e.preventDefault();
@@ -41,7 +44,7 @@ const MoviesPage = () => {
       return;
     }
 
-    setSearchParams({ query: value });
+    setSearchParams({ query: value, page: 1 });
   }
 
   return (
@@ -50,11 +53,19 @@ const MoviesPage = () => {
       <Container>
         <SearchMovies onSubmit={onSubmit} value={queryParam} />
         {movies &&
-          (movies.results.length === 0 ? (
+          (movies?.results?.length === 0 ? (
             <NotFoundText>Nothing found for your request</NotFoundText>
           ) : (
             <MovieList movies={movies.results} />
           ))}
+
+        {movies && (
+          <PaginatedItems
+            setPage={page => setSearchParams({ query: queryParam, ...page })}
+            totalPages={movies.total_pages}
+            currentPage={pageParam - 1}
+          />
+        )}
       </Container>
     </>
   );

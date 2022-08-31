@@ -12,3 +12,9 @@ export const Content = styled.p`
   font-weight: 500;
   padding: 12px 10px;
 `;
+
+export const Img = styled.img`
+  width: 100%;
+  height: 330px;
+  object-fit: cover;
+`;

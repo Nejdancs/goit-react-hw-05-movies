@@ -45,6 +45,7 @@ export const Thumb = styled.div`
 export const Content = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 26px;
 `;
 
@@ -73,5 +74,34 @@ export const StyledLink = styled(NavLink)`
     color: #ffffff;
     background: #006dba;
     border-radius: 10px;
+  }
+`;
+
+export const FavouriteBtn = styled.button`
+  display: flex;
+  padding: 10px 20px;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #006dba;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: 200ms linear;
+
+  &.active {
+    background-color: #006dba;
+    border-color: #006dba;
+    color: #fff;
+  }
+
+  &:hover {
+    background-color: #006dba;
+    border-color: #006dba;
+    color: #fff;
   }
 `;
