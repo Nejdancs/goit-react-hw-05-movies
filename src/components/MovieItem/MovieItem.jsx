@@ -19,7 +19,7 @@ const MovieItem = ({ id, title, poster_path, release_date }) => {
         </div>
 
         <Content>
-          {title ?? 'N/A'} ({releaseDate})
+          {title ? title : 'No information'} ({releaseDate})
         </Content>
       </Link>
     </Item>

@@ -24,7 +24,9 @@ const Cast = () => {
     return <>{loading && <Loader />}</>;
   }
 
-  return (
+  return actors.cast.length === 0 ? (
+    <p>We dont't have any cast for this movie.</p>
+  ) : (
     <CastList>
       {actors.cast.map(({ name, character, profile_path, id }) => {
         const imgUrl = profile_path
@@ -34,8 +36,12 @@ const Cast = () => {
         return (
           <CastItem key={id}>
             <Img src={imgUrl} alt="name" width={100} />
-            <Name>{name}</Name>
-            {character && <Character>Character: {character}</Character>}
+            <Name>{name ? name : 'No information'}</Name>
+            {character && (
+              <Character>
+                Character: {character ? character : 'No information'}
+              </Character>
+            )}
           </CastItem>
         );
       })}

@@ -35,9 +35,10 @@ const Reviews = () => {
           {reviews.results.map(({ id, author, content }) => (
             <ReviewsItem key={id}>
               <Author>
-                <AuthorTitle>Author:</AuthorTitle> {author}
+                <AuthorTitle>Author:</AuthorTitle>{' '}
+                {author ? author : 'No information'}
               </Author>
-              <p>{content}</p>
+              <p>{content ? content : 'No information'}</p>
             </ReviewsItem>
           ))}
         </ReviewsList>

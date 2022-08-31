@@ -72,28 +72,24 @@ const MovieDetails = () => {
         <Content>
           {title && (
             <h1>
-              {title} ({releaseDate})
+              {title} ({releaseDate ? releaseDate : 'N/A'})
             </h1>
           )}
-          {voteAverage && (
-            <p>
-              <ScoreLabel>User score:</ScoreLabel> {voteAverage}%
-            </p>
-          )}
 
-          {overview && (
-            <p>
-              <Label>Overview</Label>
-              {overview}
-            </p>
-          )}
+          <p>
+            <ScoreLabel>User score:</ScoreLabel>{' '}
+            {voteAverage ? voteAverage + '%' : 'No information'}
+          </p>
 
-          {genresStr && (
-            <p>
-              <Label>Genres</Label>
-              {genresStr}
-            </p>
-          )}
+          <p>
+            <Label>Overview</Label>
+            {overview ? overview : 'No information'}
+          </p>
+
+          <p>
+            <Label>Genres</Label>
+            {genresStr ? genresStr : 'No information'}
+          </p>
           <FavouriteBtn
             className={isAddToFavourite && 'active'}
             onClick={addFavourite}
